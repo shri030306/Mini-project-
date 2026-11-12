@@ -72,3 +72,35 @@ VALUES
 -- STEP 6: VIEW THE RESULT TABLE
 -- ========================================================
 SELECT * FROM tourist_places;
+
+ALTER TABLE tourist_places 
+ADD COLUMN updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
+
+SELECT * FROM tourist_places;
+
+ALTER TABLE tourist_places 
+ADD COLUMN best_time_to_visit VARCHAR(50) DEFAULT 'October to March';
+
+SELECT * FROM tourist_places;
+
+ALTER TABLE tourist_places 
+MODIFY COLUMN place_name VARCHAR(150) NOT NULL;
+
+SELECT * FROM tourist_places;
+
+UPDATE tourist_places 
+SET best_time_to_visit = 'July to October (Monsoon)' 
+WHERE category_id = 3; 
+
+SELECT * FROM tourist_places;
+
+UPDATE tourist_places 
+SET best_time_to_visit = 'November to February (Winter)' 
+WHERE category_id = 1;
+
+SELECT * FROM tourist_places;
+
+SELECT place_id, place_name, city, best_time_to_visit, created_at, updated_at 
+FROM tourist_places;
+
+
