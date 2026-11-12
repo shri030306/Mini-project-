@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f4f4ee" />
+    <title>Yatra — Tourist Place Search</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="Yatra home">
+        <span class="brand-mark" aria-hidden="true">Y</span>
+        <span>yatra<span class="brand-period">.</span></span>
+      </a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a class="nav-link active" href="#explore">Explore</a>
+        <a class="nav-link" href="#how-it-works">How it works</a>
+      </nav>
+      <button class="admin-open" id="adminOpen" type="button"><span class="admin-icon" aria-hidden="true">↗</span> Admin</button>
+    </header>
+
+    <main id="top">
+      <section class="hero" id="explore" aria-labelledby="heroTitle">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="eyebrow-line"></span> YOUR NEXT STORY STARTS HERE</p>
+          <h1 id="heroTitle">Find places<br />that <em>stay</em> with you.</h1>
+          <p class="hero-description">Explore Karnataka’s quiet lakes, ancient temples and wild coastlines. Search by what moves you; compare every result with a clear reason for its rank.</p>
+          <div class="hero-note"><span class="sparkle" aria-hidden="true">✳</span> Thoughtfully ranked, always transparent</div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="sun"></div>
+          <div class="hill hill-back"></div>
+          <div class="hill hill-mid"></div>
+          <div class="hill hill-front"></div>
+          <div class="art-label"><span class="art-label-dot"></span> Western Ghats, Karnataka</div>
+          <div class="art-stamp">GO<br />SLOW</div>
+        </div>
+      </section>
+
+      <section class="search-panel" aria-label="Search tourist places">
+        <form id="searchForm">
+          <div class="search-main-field">
+            <label for="query">What would you like to find?</label>
+            <div class="query-row">
+              <span class="search-icon" aria-hidden="true">⌕</span>
+              <input id="query" name="query" type="search" placeholder="Try “waterfalls near Shivamogga”" autocomplete="off" aria-autocomplete="list" aria-controls="placeSuggestions" aria-expanded="false" />
+              <button class="search-button" type="submit">Find places <span aria-hidden="true">→</span></button>
+            </div>
+            <div class="suggestions" id="placeSuggestions" role="listbox" aria-label="Place suggestions" hidden></div>
+          </div>
+          <div class="filters-row">
+            <div class="filter-field">
+              <label for="cityFilter">Location</label>
+              <select id="cityFilter" name="city"><option value="">Anywhere in Karnataka</option></select>
+            </div>
+            <div class="filter-field">
+              <label for="categoryFilter">Category</label>
+              <select id="categoryFilter" name="category"><option value="">All places</option></select>
+            </div>
+            <div class="filter-field">
+              <label for="preferenceFilter">I’m interested in</label>
+              <select id="preferenceFilter" name="preferredCategory"><option value="">No preference</option></select>
+            </div>
+            <div class="filter-field budget-field">
+              <label for="budgetFilter">Entry fee up to</label>
+              <div class="money-input"><span>₹</span><input id="budgetFilter" name="maxBudget" type="number" min="0" inputmode="numeric" placeholder="Any" /></div>
+            </div>
+            <div class="filter-field rating-field">
+              <label for="ratingFilter">Minimum rating</label>
+              <select id="ratingFilter" name="minRating">
+                <option value="">Any rating</option><option value="3">3+ stars</option><option value="4">4+ stars</option><option value="4.5">4.5+ stars</option>
+              </select>
+            </div>
+            <button class="clear-button" id="clearFilters" type="button">Clear</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="results-section" aria-labelledby="resultsHeading">
+        <div class="results-heading-row">
+          <div>
+            <p class="section-kicker" id="resultsCount">PLACES TO EXPLORE</p>
+            <h2 id="resultsHeading">Made for your kind of curious.</h2>
+          </div>
+          <div class="sort-control" role="group" aria-label="Sort results">
+            <span>Sort by</span>
+            <select id="sortSelect" aria-label="Sort results by">
+              <option value="score">Best match</option>
+              <option value="rating">Top rated</option>
+              <option value="popularity">Most loved</option>
+              <option value="fee">Lowest entry fee</option>
+              <option value="name">A to Z</option>
+            </select>
+          </div>
+        </div>
+        <div class="rank-explainer" id="rankExplainer"><span class="info-mark">i</span><span><strong>Why this order?</strong> Each place is scored using rating, popularity and your category preference. Choose another sort above to compare the same results.</span></div>
+        <div class="demo-notice" id="demoNotice" hidden><span aria-hidden="true">◈</span> Preview catalog shown — connect the Engine 3 API to load live records and rankings.</div>
+        <div class="results-grid" id="resultsGrid" aria-live="polite" aria-busy="false"></div>
+        <div class="empty-state" id="emptyState" hidden>
+          <div class="empty-illustration" aria-hidden="true">⌕</div>
+          <h3>No places found this time.</h3>
+          <p>Try a different word or widen one of your filters.</p>
+          <button type="button" class="text-button" id="emptyClear">Clear filters <span aria-hidden="true">→</span></button>
+        </div>
+      </section>
+
+      <section class="how-section" id="how-it-works">
+        <div class="how-intro"><p class="section-kicker">NO MYSTERY IN THE ORDER</p><h2>A little more context.<br /><em>A lot more confidence.</em></h2></div>
+        <div class="how-steps">
+          <article><span class="step-number">01</span><h3>Tell us what matters</h3><p>Search in your own words, then narrow by location, category, fee or rating.</p></article>
+          <article><span class="step-number">02</span><h3>See how each place scores</h3><p>Every recommendation shows the rating, popularity and preference signals behind it.</p></article>
+          <article><span class="step-number">03</span><h3>Compare another order</h3><p>Switch from best match to rating, popularity, entry fee or name without changing your search.</p></article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer"><a class="brand footer-brand" href="#top"><span class="brand-mark" aria-hidden="true">Y</span><span>yatra<span class="brand-period">.</span></span></a><span>Made for curious journeys across Karnataka.</span><span class="footer-copyright">Tourist Place Search &amp; Ranking System</span></footer>
+
+    <dialog class="place-dialog" id="placeDialog" aria-labelledby="dialogTitle">
+      <button class="dialog-close" type="button" data-close-dialog aria-label="Close details">×</button>
+      <div id="placeDialogContent"></div>
+    </dialog>
+
+    <dialog class="admin-dialog" id="adminDialog" aria-labelledby="adminDialogTitle">
+      <button class="dialog-close" type="button" data-close-dialog aria-label="Close admin dialog">×</button>
+      <div class="admin-dialog-content">
+        <p class="section-kicker">PLACE CATALOGUE</p>
+        <h2 id="adminDialogTitle">Admin access</h2>
+        <p class="admin-intro">Sign in to manage destination records. The server must verify this role on every admin request.</p>
+        <form id="adminLoginForm" class="admin-form">
+          <label for="adminPassword">Admin password</label>
+          <input id="adminPassword" name="password" type="password" required autocomplete="current-password" />
+          <button class="search-button" type="submit">Continue <span aria-hidden="true">→</span></button>
+          <p class="form-message" id="adminMessage" role="status"></p>
+        </form>
+        <div class="admin-tools" id="adminTools" hidden>
+          <div class="admin-tools-heading"><h3>Manage a place</h3><button class="text-button" id="adminLogout" type="button">Sign out</button></div>
+          <form id="placeForm" class="admin-form admin-place-form">
+            <input id="placeId" name="place_id" type="hidden" />
+            <label for="placeName">Place name</label><input id="placeName" name="place_name" required maxlength="120" />
+            <div class="admin-form-split"><div><label for="placeCity">City</label><input id="placeCity" name="city" required maxlength="100" /></div><div><label for="placeState">State</label><input id="placeState" name="state" value="Karnataka" required maxlength="100" /></div></div>
+            <label for="placeCategories">Categories <span class="label-hint">separate with commas</span></label><input id="placeCategories" name="categories" placeholder="Nature, Hill Station" required />
+            <label for="placeDescription">Description</label><textarea id="placeDescription" name="description" rows="3" required maxlength="1000"></textarea>
+            <div class="admin-form-split"><div><label for="placeFee">Entry fee (₹)</label><input id="placeFee" name="entry_fee" type="number" min="0" step="0.01" required /></div><div><label for="placeRating">Rating</label><input id="placeRating" name="rating" type="number" min="1" max="5" step="0.01" required /></div></div>
+            <div class="admin-form-actions"><button class="search-button" type="submit" id="placeSaveButton">Save place <span aria-hidden="true">→</span></button><button class="text-button" id="cancelEdit" type="button" hidden>Cancel edit</button></div>
+            <p class="form-message" id="placeMessage" role="status"></p>
+          </form>
+          <div class="admin-catalogue"><h3>Current catalogue</h3><div id="adminPlacesList" class="admin-places-list"><p class="catalogue-empty">Sign in to load place records.</p></div></div>
+        </div>
+      </div>
+    </dialog>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
