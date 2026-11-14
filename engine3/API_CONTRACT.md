@@ -1,6 +1,6 @@
-# Engine 2 / Engine 3 API Handoff
+# Engine 3 / Engine 2 API Handoff
 
-The front end currently expects these JSON endpoints on `http://localhost:3000/api`. The Engine 3 owner should confirm the contract before implementation or adjust `engine2/app.js` to match the agreed server routes.
+The Engine 3 front end currently expects these JSON endpoints on `http://localhost:3000/api`. The Engine 2 owner should confirm the contract before implementation or adjust `engine3/app.js` to match the agreed server routes.
 
 ## Filter options
 
@@ -45,7 +45,7 @@ The API applies server-side input validation and filters, retrieves active place
 }
 ```
 
-The UI sort values are `score`, `rating`, `popularity`, `fee`, and `name`. `score` must preserve Engine 3 / C++ ordering. Alternate modes should be applied by the backend so the UI does not become the source of ranking logic.
+The UI sort values are `score`, `rating`, `popularity`, `fee`, and `name`. `score` must preserve Engine 2 / C++ ordering. Alternate modes should be applied by the backend so the UI does not become the source of ranking logic.
 
 ## Admin access and catalogue management
 

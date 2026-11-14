@@ -1,6 +1,6 @@
 const API_BASE = "http://localhost:3000/api";
 
-// Temporary presentation data. Engine 3's API becomes the source of results when available.
+// Temporary presentation data. Engine 2's API becomes the source of results when available.
 const demoPlaces = [
   { place_id: "p01", place_name: "Virupaksha Temple & Hampi Ruins", city: "Hampi", state: "Karnataka", categories: ["Historical", "Temple"], description: "Walk through an extraordinary landscape of temples, stone streets and Vijayanagara-era ruins.", rating: 4.9, popularity: 98, entry_fee: 50, score: 0.984, kind: "heritage" },
   { place_id: "p02", place_name: "Vijaya Vittala Temple & Stone Chariot", city: "Hampi", state: "Karnataka", categories: ["Historical", "Temple"], description: "See the carved stone chariot and musical pillars at one of Hampi’s best-known monuments.", rating: 4.9, popularity: 99, entry_fee: 50, score: 0.987, kind: "heritage" },
@@ -351,7 +351,7 @@ async function openAdmin() {
   } catch (error) {
     adminToken = "";
     sessionStorage.removeItem("yatraAdminToken");
-    elements.adminMessage.textContent = error.message.includes("Failed to fetch") ? "Admin sign-in will be available when the Engine 3 API is connected." : error.message;
+    elements.adminMessage.textContent = error.message.includes("Failed to fetch") ? "Admin sign-in will be available when the Engine 2 API is connected." : error.message;
   }
 }
 
@@ -376,7 +376,7 @@ async function loadAdminPlaces() {
     adminPlaces = Array.isArray(payload) ? payload : (payload.places || []);
     renderAdminPlaces(adminPlaces);
   } catch (error) {
-    list.innerHTML = `<p class="catalogue-empty">${escapeHtml(error.message.includes("Failed to fetch") ? "Catalogue management will be available when the Engine 3 API is connected." : error.message)}</p>`;
+    list.innerHTML = `<p class="catalogue-empty">${escapeHtml(error.message.includes("Failed to fetch") ? "Catalogue management will be available when the Engine 2 API is connected." : error.message)}</p>`;
   }
 }
 
@@ -411,7 +411,7 @@ async function deactivatePlace(placeId) {
     await loadAdminPlaces();
     runSearch();
   } catch (error) {
-    showToast(error.message.includes("Failed to fetch") ? "Place management will be available when the Engine 3 API is connected." : error.message);
+    showToast(error.message.includes("Failed to fetch") ? "Place management will be available when the Engine 2 API is connected." : error.message);
   }
 }
 
@@ -462,7 +462,7 @@ document.querySelector("#adminLoginForm").addEventListener("submit", async event
     elements.adminMessage.textContent = "Admin access verified by the server.";
     await loadAdminPlaces();
   } catch (error) {
-    elements.adminMessage.textContent = error.message.includes("Failed to fetch") ? "Admin sign-in will be available when the Engine 3 API is connected." : error.message;
+    elements.adminMessage.textContent = error.message.includes("Failed to fetch") ? "Admin sign-in will be available when the Engine 2 API is connected." : error.message;
   }
 });
 
@@ -494,7 +494,7 @@ document.querySelector("#placeForm").addEventListener("submit", async event => {
     await loadAdminPlaces();
     runSearch();
   } catch (error) {
-    elements.placeMessage.textContent = error.message.includes("Failed to fetch") ? "Place management will be available when the Engine 3 API is connected." : error.message;
+    elements.placeMessage.textContent = error.message.includes("Failed to fetch") ? "Place management will be available when the Engine 2 API is connected." : error.message;
   }
 });
 
